@@ -1,0 +1,10 @@
+User-Agent: *
+Disallow: /
+
+User-Agent: Googlebot-Image
+Disallow: /
+
+User-Agent: Googlebot-Video
+Disallow: /
+
+Sitemap: https://nsakibuccs.github.io/sitemap.xml

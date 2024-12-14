@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<meta name='description' content='A portfolio of Nazmus.'>
+	<meta name='author' content='Nazmus Sakib'>
+	<meta name='robots' content='noindex, nofollow'>
+	<title>Nazmus · Sakib</title>
+	<link rel='icon' href='favicon.svg'>
+	<link href='lib/css/bootstrap.min.css' rel='stylesheet'>
+	<link href='style.min.css' type='text/css' rel='stylesheet'>
+</head>
+
+<body class='bg-color-container'>
+	<header class='container-main navbar navbar-expand-md navbar-light bg-color sticky-top border-bottom-dim'>
+		<div class='container'>
+			<a class='navbar-brand text-center fs-5 col-md-2 border-0 bg-transparent text-color'>Nazmus Sakib</a>
+			<button class='navbar-toggler text-color' type='button' data-bs-toggle='collapse'
+				data-bs-target='#navbarContent' aria-controls='navbarContent' aria-expanded='false'
+				aria-label='Toggle navigation'>
+				<span class='navbar-toggler-icon' data-feather='menu'></span>
+			</button>
+			<div class='collapse navbar-collapse' id='navbarContent'>
+				<ul class='navbar-nav me-auto'>
+					<li class='nav-item ms-3'><a class='nav-link nav-link-uline fs-6 text-color-bold'
+							href='/'><b>Home</b></a>
+					</li>
+					<li class='nav-item ms-3'><a class='nav-link nav-link-uline fs-6 text-color-bold'
+							href='projects'>Projects</a></li>
+					<li class='nav-item ms-3'><a class='nav-link nav-link-uline fs-6 text-color-bold'
+							href='publications'>Publications</a></li>
+					<li class='nav-item ms-3'><a class='nav-link nav-link-uline fs-6 text-color-bold'
+							href='resume'>CV</a></li>
+					<li class='nav-item ms-3' id='contactNavContainer'>
+						<a class='nav-link nav-link-uline fs-6 text-color-bold' id='contactNav'
+							href='contact'>Contact</a>
+					</li>
+				</ul>
+				<div class='form-check form-switch float-end'>
+					<label class='form-check-label text-color cursor-pointer' for='nightModeToggle'>
+						<i id='dayNightIcon' data-feather='sun'></i>
+					</label>
+					<input class='form-check-input d-none' type='checkbox' id='nightModeToggle'
+						onchange='toggleDayNightIcon()'>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class='container-main d-flex flex-wrap bg-color fade'>
+		<nav class='navbar col-md-3 col-lg-3 d-md-block bg-color sidebar'>
+			<div class='position-sticky pt-3 sidebar-sticky'>
+				<ul class='nav flex-column'>
+					<li class='nav-item'>
+						<canvas id='profile' class='fade' width='600' height='827'></canvas>
+					</li>
+					<li class='nav-link nav-item mt-3'><span
+							class='active fs-5 font-weight-bold text-color-bold'><b>Nazmus Sakib</b></span>
+					</li>
+					<li class='nav-item'><span class='nav-link active fs-6 text-color'>Ph.D. Student in
+							Security</span><span class='nav-link fs-6 text-color-dim'
+							style='padding-top: 0; margin-top: -5px;'>Department of Computer Science, University of
+							Colorado, Colorado Springs</span></li>
+					<li class='nav-item'><a class='nav-link fs-6 text-color' href='mailto:nsakib@uccs.edu'
+							target='_blank' rel='noopener noreferrer'><span data-feather='mail'
+								class='align-text-bottom text-color-dim'></span>
+							Email</a></li>
+					<li class='nav-item'><a class='nav-link fs-6 text-color'
+							href='https://scholar.google.com/citations?user=tAkzzeoAAAAJ' target='_blank'
+							rel='noopener noreferrer'><span data-feather='book'
+								class='align-text-bottom text-color-dim'></span> Google Scholar</a>
+					</li>
+					<li class='nav-item'><a class='nav-link fs-6 text-color' href='https://github.com/nsakibuccs'
+							target='_blank' rel='noopener noreferrer'><span data-feather='github'
+								class='align-text-bottom text-color-dim'></span>
+							GitHub</a></li>
+					<li class='nav-item'><a class='nav-link fs-6 text-color' href='https://www.linkedin.com/in/nazmussakib2017'
+							target='_blank' rel='noopener noreferrer'><span data-feather='linkedin'
+								class='align-text-bottom text-color-dim'></span> LinkedIn</a></li>
+				</ul>
+			</div>
+		</nav>
+		<main class='col-md-9 ms-sm-auto col-lg-9 p-3 px-md-4 bg-color'>
+			<!-- <h4 class='text-color'>Objective</h4>
+			<p class='text-color'>
+				Work on cutting-edge technologies; discover creative and robust solutions that guarantee scalability and
+				security.
+			</p>
+			<hr class='text-color'> -->
+			<p class='fs-6 text-color'>
+				Welcome. I am a Ph.D. student in the Department of Computer Science at the University of Colorado studying computer security. My research interests include machine learning, peer-to-peer networks, and distributed ledger technologies. I am currently working on improving the security and scalability of blockchain networks.
+			</p>
+
+			<h4 class='text-color'>Research Interests</h4>
+			<p class='text-color'>
+				...
+			</p>
+			<br>
+
+			<h4 class='text-color'>Machine Learning</h4>
+			<p class='text-color'>
+				...
+			</p>
+
+			<br>
+			<h4 class='text-color'>Peer-to-Peer Networks & Distributed Ledger Technologies</h4>
+			<p class='text-color'>
+				...
+			</p>
+
+			<div class='row'>
+				<div class='col-6 image-container'>
+					<!-- <embed type='image/svg+xml' id='blockDelay' src='SVG_IMAGE_PATH' width='100%'
+						alt='Block Propagation Time'></embed> -->
+				</div>
+				<div class='col-6 image-container'>
+					<!-- <embed type='image/svg+xml' id='bandwidth' src='SVG_IMAGE_PATH' width='100%'
+						alt='Node Bandwidth'></embed> -->
+				</div>
+				<div class='col-12 text-color'>
+					<p>
+					</p>
+				</div>
+			</div>
+
+			<p class='text-color'>
+				More information can be found in my <a href='publications'>publications</a> and <a
+					href='projects'>projects</a> pages.
+			</p>
+
+		</main>
+	</div>
+	<footer class='container-main footer text-color-dim bg-color-dim'>
+		<div class='row'>
+			<div class='col text-center'>
+				Copyright © 2024 Nazmus Sakib.
+			</div>
+		</div>
+	</footer>
+	<script src='lib/js/bootstrap.bundle.min.js' defer></script>
+	<script src='lib/js/feather.min.js'></script>
+	<script type='text/javascript' src='script.min.js'></script>
+	<script type='text/javascript'>
+		// Draw the profile image on the canvas if supported, otherwise insert the image element
+		window.onload = function () {
+			let canvas = document.getElementById('profile');
+			if (canvas.getContext) {
+				var ctx = canvas.getContext('2d');
+				var img = new Image();
+				img.onload = function () {
+					ctx.drawImage(img, 0, 0, 600, 827);
+					canvas.classList.add('show');
+				}
+				img.src = 'img/profile.jpg';
+			} else {
+				// Canvas is not supported, insert the image
+				var imgElement = document.createElement('img');
+				imgElement.id = 'profileImgFallback';
+				imgElement.src = 'img/profile.jpg';
+				imgElement.alt = 'Profile image of Nazmus Sakib';
+				imgElement.classList.add('fade');
+				canvas.parentNode.replaceChild(imgElement, canvas);
+				imgElement.onload = function () {
+					imgElement.classList.add('show');
+				}
+			}
+		};
+	</script>
+</body>
+
+</html>

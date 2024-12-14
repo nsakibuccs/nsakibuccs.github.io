@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<meta name='description' content='Contact page'>
+	<meta name='author' content='Nazmus Sakib'>
+	<meta name='robots' content='noindex, nofollow'>
+	<title>Contact · Nazmus</title>
+	<link rel='icon' href='favicon.svg'>
+	<link href='lib/css/bootstrap.min.css' rel='stylesheet'>
+	<link href='style.min.css' type='text/css' rel='stylesheet'>
+</head>
+
+<body class='bg-color-container'>
+	<header class='container-main navbar navbar-expand-md navbar-light bg-color sticky-top border-bottom-dim'>
+		<div class='container'>
+			<a class='navbar-brand text-center fs-5 col-md-2 border-0 bg-transparent text-color'>Nazmus Sakib</a>
+			<button class='navbar-toggler text-color' type='button' data-bs-toggle='collapse'
+				data-bs-target='#navbarContent' aria-controls='navbarContent' aria-expanded='false'
+				aria-label='Toggle navigation'>
+				<span class='navbar-toggler-icon' data-feather='menu'></span>
+			</button>
+			<div class='collapse navbar-collapse' id='navbarContent'>
+				<ul class='navbar-nav me-auto'>
+					<li class='nav-item ms-3'><a class='nav-link nav-link-uline fs-6 text-color-bold' href='/'>Home</a>
+					</li>
+					<li class='nav-item ms-3'><a class='nav-link nav-link-uline fs-6 text-color-bold'
+							href='projects'>Projects</a></li>
+					<li class='nav-item ms-3'><a class='nav-link nav-link-uline fs-6 text-color-bold'
+							href='publications'>Publications</a></li>
+						<li class='nav-item ms-3'><a class='nav-link nav-link-uline fs-6 text-color-bold'
+								href='resume'>Resume</a></li>
+					<li class='nav-item ms-3' id='contactNavContainer'>
+						<a class='nav-link nav-link-uline fs-6 text-color-bold' id='contactNav'
+							href='contact'><b>Contact</b></a>
+					</li>
+				</ul>
+				<div class='form-check form-switch float-end'>
+					<label class='form-check-label text-color cursor-pointer' for='nightModeToggle'>
+						<i id='dayNightIcon' data-feather='sun'></i>
+					</label>
+					<input class='form-check-input d-none' type='checkbox' id='nightModeToggle'
+						onchange='toggleDayNightIcon()'>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div id='form-container' class='container-main d-flex flex-wrap bg-color fade'>
+		<main class='col-md-12 ms-sm-auto col-lg-12 px-md-4 pt-0'>
+			<div class='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3'>
+				<div class='container text-color p-o'>
+					<script type='text/javascript'>
+						var submitted = false;
+					</script>
+					<!-- Hidden iframe for form submission -->
+					<iframe name='hidden_iframe' id='hidden_iframe' style='display:none;'
+						onload='if(submitted) {window.location="submitted.html";}'></iframe>
+					<form id='contact-form'
+						action=''
+						method='POST' target='hidden_iframe' onsubmit='saveMessageToStorage(); submitted=true;'>
+						<h4 id='form-header' class='text-color'>Contact Form</h4>
+						<br>
+						<!-- <i data-feather='coffee' class='text-color-dimmer float-end'
+							style='width: 50px; height: 50px; margin-top: -25px; rotate(-90deg);'></i> -->
+						<div class='mb-3'>
+							<label for='email' class='form-label text-color'>Email</label>
+							<input type='email' class='form-control text-color bg-color-dim' id='email'
+								name='entry.299309482' required>
+						</div>
+						<div class='mb-3'>
+							<label for='name' class='form-label text-color'>Name</label>
+							<input type='text' class='form-control text-color bg-color-dim' id='name'
+								name='entry.1175088024' required>
+						</div>
+						<div class='mb-3'>
+							<label for='message' class='form-label text-color'>Your Message</label>
+							<textarea class='form-control text-color bg-color-dim' id='message' rows='6' name='entry.156154504' onchange='str.value = genstr(); showUpdate()' required></textarea>
+						</div>
+						<div class='mb-3 opacity-25'>
+							<label for='validation' class='form-label text-color'>Anti-Spam Validation String</label>
+							<input type='text' class='form-control text-color-dim bg-color-dimmer' id='code' readonly>
+
+							<input type='text' class='form-control d-none' id='str' name='entry.1879624359' required readonly>
+						</div>
+						<button type='submit' class='btn btn-primary float-end'>Send Message</button>
+					</form>
+				</div>
+			</div>
+		</main>
+	</div>
+	<footer class='container-main footer text-color-dim bg-color-dim'>
+		<div class='row'>
+			<div class='col text-center'>
+				Copyright © 2024 Nazmus Sakib.
+			</div>
+		</div>
+	</footer>
+	<script src='lib/js/bootstrap.bundle.min.js' defer></script>
+	<script src='lib/js/feather.min.js'></script>
+	<script type='text/javascript' src='script.min.js'></script>
+
+	<script type='text/javascript'>
+		// Adjust the iframe height to fit the window
+		function adjustIframeHeight() {
+			const headerHeight = document.querySelector('header').offsetHeight;
+			const footerHeight = document.querySelector('footer').offsetHeight;
+			const iframeHeight = window.innerHeight - headerHeight - footerHeight;
+			document.getElementById('form-container').style.height = iframeHeight + 'px';
+		}
+		window.addEventListener('resize', adjustIframeHeight);
+		window.addEventListener('DOMContentLoaded', adjustIframeHeight);
+
+		// Prevent unauthorized spam messages with a validation string required by Google Forms
+		document.getElementById('contact-form').action = atob('aHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vZm9ybXMvZC9lLzFGQUlwUUxTZVhNMXQ0Y0h0aE4zY1pjeGhZSExGWkFaS08') + atob('TGVGTFlWOG9rTjJYaXJ4Z0NsQkcyQS92aWV3Zm9ybT9lbWJlZGRlZD10cnVl');
+		makeScriptTag(scriptTag, (useFullURL ? 'https://nsakibuccs.github.io' : '') + '/lib/js/contact_validation.js', true);
+
+		// Hide footer on mobile devices when input is focused
+		const footer = document.querySelector('.footer');
+		const inputs = document.querySelectorAll('input, textarea');
+		if (window.innerHeight > window.innerWidth) { // Mobile devices
+			inputs.forEach(input => {
+				input.addEventListener('focus', () => {
+					footer.style.opacity = '0';
+				});
+				input.addEventListener('blur', () => {
+					footer.style.opacity = '1';
+				});
+			});
+		}
+
+		function saveMessageToStorage() {
+			const message = document.getElementById('message').value;
+			const email = document.getElementById('email').value;
+			const name = document.getElementById('name').value;
+			const validation = document.getElementById(atob('c3Ry')).value;
+			localStorage.setItem('submittedMessage', message);
+			localStorage.setItem('submittedEmail', email);
+			localStorage.setItem('submittedName', name);
+			localStorage.setItem('submittedValidation', btoa(validation));
+		}
+		
+	</script>
+
+</body>
+
+</html>

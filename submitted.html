@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<meta name='description' content='Message submitted'>
+	<meta name='author' content='Nazmus Sakib'>
+	<meta name='robots' content='noindex, nofollow'>
+	<title>Thank you for your message</title>
+	<link rel='icon' href='favicon.svg'>
+	<link href='lib/css/bootstrap.min.css' rel='stylesheet'>
+	<link href='style.min.css' type='text/css' rel='stylesheet'>
+</head>
+
+<body class='bg-color-container'>
+	<header class='container-main navbar navbar-expand-md navbar-light bg-color sticky-top border-bottom-dim'>
+		<div class='container'>
+			<a class='navbar-brand text-center fs-5 col-md-2 border-0 bg-transparent text-color'>Nazmus Sakib</a>
+			<button class='navbar-toggler text-color' type='button' data-bs-toggle='collapse'
+				data-bs-target='#navbarContent' aria-controls='navbarContent' aria-expanded='false'
+				aria-label='Toggle navigation'>
+				<span class='navbar-toggler-icon' data-feather='menu'></span>
+			</button>
+			<div class='collapse navbar-collapse' id='navbarContent'>
+				<ul class='navbar-nav me-auto'>
+					<li class='nav-item ms-3'><a class='nav-link nav-link-uline fs-6 text-color-bold' href='/'>Home</a>
+					</li>
+					<li class='nav-item ms-3'><a class='nav-link nav-link-uline fs-6 text-color-bold'
+							href='projects'>Projects</a></li>
+					<li class='nav-item ms-3'><a class='nav-link nav-link-uline fs-6 text-color-bold'
+							href='publications'>Publications</a></li>
+					<li class='nav-item ms-3'><a class='nav-link nav-link-uline fs-6 text-color-bold'
+							href='resume'>CV</a></li>
+					<li class='nav-item ms-3' id='contactNavContainer'>
+						<a class='nav-link nav-link-uline fs-6 text-color-bold' id='contactNav'
+							href='contact'><b>Contact</b></a>
+					</li>
+				</ul>
+				<div class='form-check form-switch float-end'>
+					<label class='form-check-label text-color cursor-pointer' for='nightModeToggle'>
+						<i id='dayNightIcon' data-feather='sun'></i>
+					</label>
+					<input class='form-check-input d-none' type='checkbox' id='nightModeToggle'
+						onchange='toggleDayNightIcon()'>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div id='container' class='container-main d-flex flex-wrap bg-color fade justify-content-center align-items-center'
+		style='min-height: 60vh;'>
+		<div class='text-center'>
+			<i id='icon' data-feather='sliders' class='mb-4 text-color-dimmer user-select-none'
+				style='width: 160px; height: 160px; margin-top: -50px; transform: rotate(-90deg);'></i>
+
+			<h3 id='messageTitle' class='text-color-bold mb-4 animated fadeIn user-select-none'>Thank you for your message.</h3>
+			<h4 id='messageStatus' class='text-color-dim animated fadeIn delay-1s user-select-none'></h4>
+
+			<div id='submissionBox' class='mt-4 p-4 rounded bg-color-dimmer text-start'>
+				<p class='mb-2 user-select-none'>
+					<span class='text-color-dim'>Submitted Name:</span>
+					<span id='displayName' class='text-color' style='user-select: all;'></span>
+				</p>
+				<p class='mb-2 user-select-none'>
+					<span class='text-color-dim'>Submitted Email:</span>
+					<span id='displayEmail' class='text-color' style='user-select: all;'></span>
+				</p>
+				<p class='mb-2 user-select-none'>
+					<span class='text-color-dim'>Submitted Message:</span>
+				</p>
+				<pre id='displayMessage' class='text-color mb-0' style='white-space: pre-wrap; user-select: all;'></pre>
+			</div>
+
+		</div>
+	</div>
+	<footer class='container-main footer text-color-dim bg-color-dim'>
+		<div class='row'>
+			<div class='col text-center'>
+				Copyright © 2024 Nazmus Sakib.
+			</div>
+		</div>
+	</footer>
+	<script src='lib/js/bootstrap.bundle.min.js' defer></script>
+	<script src='lib/js/feather.min.js'></script>
+	<script type='text/javascript' src='script.min.js'></script>
+
+	<script type='text/javascript'>
+		// Adjust the iframe height to fit the window
+		function adjustIframeHeight() {
+			const headerHeight = document.querySelector('header').offsetHeight;
+			const footerHeight = document.querySelector('footer').offsetHeight;
+			const iframeHeight = window.innerHeight - headerHeight - footerHeight;
+			document.getElementById('container').style.height = iframeHeight + 'px';
+		}
+
+		window.addEventListener('resize', adjustIframeHeight);
+
+		// Save the message to local storage in case the user wants to view it again
+		document.addEventListener('DOMContentLoaded', function () {
+			adjustIframeHeight();
+			const submittedMessage = localStorage.getItem('submittedMessage');
+			const submittedEmail = localStorage.getItem('submittedEmail');
+			const submittedName = localStorage.getItem('submittedName');
+
+			if (submittedMessage && submittedEmail && submittedName) {
+				// If validation string matches regex '[0-9]+' then it is valid
+				let validation = localStorage.getItem('submittedValidation'), isValid = true;
+				if (validation) isValid = atob(validation).match(`${atob('KFhbMDM0NzldezQsNX1bQVc=')}${atob('Q1JCMDFZTUlMUF17NCw3fVs=')}${atob('ZkZdKFteYS16SU1ZQjIzUlY=')}${atob('V1hRWl17Miw4fVxiLltoaw==')}${atob('eGpiXXszLDV9KXszfVtLVU4=')}${atob('NVlIQlJDV1hdezMsOX1bOjs=')}${atob('XVwrXCspezN9')}`);
+
+				document.getElementById('messageTitle').innerText = isValid ? 'Thank you for your message.' : 'Error validating your message.';
+				document.getElementById('messageStatus').innerText = isValid ? 'Your message has been received.' : 'Your message was not received.\nPlease consider re-sending your message.';
+				if (!isValid) document.getElementById('icon').setAttribute('data-feather', 'x-circle');
+				document.getElementById('displayMessage').textContent = submittedMessage;
+				document.getElementById('displayEmail').textContent = submittedEmail;
+				document.getElementById('displayName').textContent = submittedName;
+			} else {
+				document.getElementById('messageStatus').innerText = 'If you sent a message, then it has been received.';
+				document.getElementById('submissionBox').style.display = 'none';
+			}
+		});
+
+
+	</script>
+
+</body>
+
+</html>
