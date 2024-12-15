@@ -27,6 +27,7 @@ if (scriptTag == null) scriptTag = document.currentScript;
 let bgColor = '#212529';
 let bgColorInv = '#99e3ca';
 let bgColorDim = '#30333a';
+let bgColorDim2 = '#dde7ec';
 let bgColorDimmer = '#2a3945';
 let bgColorContainer = '#1f2327';
 let textColor = '#f7f9f9';
@@ -56,6 +57,7 @@ function toggleNightMode(isNight = true, useAnimations = true, saveToLocalStorag
 		bgColor = '#212529';
 		bgColorInv = '#99e3ca';
 		bgColorDim = '#30333a';
+		bgColorDim2 = '#2f323a';
 		bgColorDimmer = '#2a3945';
 		bgColorContainer = '#1f2327';
 		textColor = '#f7f9f9';
@@ -70,8 +72,9 @@ function toggleNightMode(isNight = true, useAnimations = true, saveToLocalStorag
 		bgColor = '#f8f9fa';
 		bgColorInv = '#4a7768';
 		bgColorDim = '#ecf2f5';
+		bgColorDim2 = '#dde7ec';
 		bgColorDimmer = '#c7dbea';
-		bgColorContainer = '#3d465c'; //'#e4e4e4';
+		bgColorContainer = '#3d465c';
 		textColor = '#202828';
 		textColorInv = '#f7f9f9';
 		textColorDim = '#055aa1';
@@ -93,6 +96,10 @@ function toggleNightMode(isNight = true, useAnimations = true, saveToLocalStorag
 	elements = document.querySelectorAll('.bg-color-dim');
 	elements.forEach(function (el) {
 		el.style.setProperty('background-color', bgColorDim, 'important');
+	});
+	elements = document.querySelectorAll('.bg-color-dim2');
+	elements.forEach(function (el) {
+		el.style.setProperty('background-color', bgColorDim2, 'important');
 	});
 	elements = document.querySelectorAll('.bg-color-dimmer');
 	elements.forEach(function (el) {
@@ -205,50 +212,6 @@ function toggleNightMode(isNight = true, useAnimations = true, saveToLocalStorag
 	if (saveToLocalStorage) {
 		localStorage.setItem('darkMode', JSON.stringify(isNight));
 	}
-
-	// Toggle the dark mode version of the diagrams
-	setTimeout(function () {
-		let highLevelComponentsImg = document.getElementById('highLevelComponents');
-		let quicStackImg = document.getElementById('quicStack');
-		let pqcPlotImg = document.getElementById('pqcPlot');
-		let blockDelayImg = document.getElementById('blockDelay');
-		let bandwidthImg = document.getElementById('bandwidth');
-		if (highLevelComponentsImg) {
-			if (isNight) {
-				highLevelComponentsImg.src = 'img/high-level-components-light.svg';
-			} else {
-				highLevelComponentsImg.src = 'img/high-level-components.svg';
-			}
-		}
-		if (quicStackImg) {
-			if (isNight) {
-				quicStackImg.src = 'img/quic-stack-light.svg';
-			} else {
-				quicStackImg.src = 'img/quic-stack.svg';
-			}
-		}
-		if (pqcPlotImg) {
-			if (isNight) {
-				pqcPlotImg.src = 'img/pqc-plot-light.svg';
-			} else {
-				pqcPlotImg.src = 'img/pqc-plot.svg';
-			}
-		}
-		if (blockDelayImg) {
-			if (isNight) {
-				blockDelayImg.src = 'img/block-delay-light.svg';
-			} else {
-				blockDelayImg.src = 'img/block-delay.svg';
-			}
-		}
-		if (bandwidthImg) {
-			if (isNight) {
-				bandwidthImg.src = 'img/bandwidth-light.svg';
-			} else {
-				bandwidthImg.src = 'img/bandwidth.svg';
-			}
-		}
-	}, 500);
 
 	// Update the icons
 	feather.replace({

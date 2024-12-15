@@ -5,6 +5,7 @@ body {
     --bg-color: #f8f9fa;
     --bg-color-inv: #4a7768;
     --bg-color-dim: #ecf2f5;
+    --bg-color-dim2: #dde7ec;
     --bg-color-dimmer: #c7dbea;
     --text-color: #202828;
     --text-color-inv: #f7f9f9;
@@ -232,6 +233,7 @@ a:active:not(.btn, .navbar-brand, .nav-link) {
 
 .bg-color,
 .bg-color-dim,
+.bg-color-dim2,
 .bg-color-dimmer,
 .bg-color-container {
     background-color: #212529;

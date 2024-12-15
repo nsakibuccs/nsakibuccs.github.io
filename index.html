@@ -53,7 +53,7 @@
 			<div class='position-sticky pt-3 sidebar-sticky'>
 				<ul class='nav flex-column'>
 					<li class='nav-item'>
-						<canvas id='profile' class='fade' width='600' height='827'></canvas>
+						<canvas id='profile' class='fade' width='800' height='820'></canvas>
 					</li>
 					<li class='nav-link nav-item mt-3'><span
 							class='active fs-5 font-weight-bold text-color-bold'><b>Nazmus Sakib</b></span>
@@ -91,45 +91,49 @@
 			<p class='fs-6 text-color'>
 				Welcome. I am a Ph.D. student in the Department of Computer Science at the University of Colorado studying computer security. My research interests include machine learning, peer-to-peer networks, and distributed ledger technologies. I am currently working on improving the security and scalability of blockchain networks.
 			</p>
-
-			<h4 class='text-color'>Research Interests</h4>
+		
+			<h4 class='text-color'>Research Focus</h4>
 			<p class='text-color'>
-				...
+				My research aims to address some of the critical challenges in the fields of security and data communication over decentralized networks. Specifically, I am focused on developing advanced methods to enhance the security frameworks of blockchain technologies and peer-to-peer systems.
 			</p>
 			<br>
-
-			<h4 class='text-color'>Machine Learning</h4>
+		
+			<h4 class='text-color'>Machine Learning Applications in Security</h4>
 			<p class='text-color'>
-				...
+				I explore the application of machine learning techniques to predict and mitigate security vulnerabilities in networked systems. My work includes using AI to automate threat detection and response in real-time, enhancing the resilience of distributed networks against malicious attacks.
 			</p>
-
+		
 			<br>
 			<h4 class='text-color'>Peer-to-Peer Networks & Distributed Ledger Technologies</h4>
 			<p class='text-color'>
-				...
+				My interest in peer-to-peer networks and distributed ledger technologies revolves around improving transaction efficiency and security. This includes optimizing blockchain protocols for faster block propagation times and reduced latency, and studying the implications of network topology on blockchain performance.
 			</p>
-
+		
 			<div class='row'>
 				<div class='col-6 image-container'>
-					<!-- <embed type='image/svg+xml' id='blockDelay' src='SVG_IMAGE_PATH' width='100%'
-						alt='Block Propagation Time'></embed> -->
-				</div>
-				<div class='col-6 image-container'>
-					<!-- <embed type='image/svg+xml' id='bandwidth' src='SVG_IMAGE_PATH' width='100%'
-						alt='Node Bandwidth'></embed> -->
-				</div>
-				<div class='col-12 text-color'>
-					<p>
+					<embed type='image/svg+xml' src='img/Network_PDF.svg' width='100%'
+						alt='Positive Reputation Score Distribution'></embed>
+					<p class='text-color'>
+						This visualization displays the distribution of positive reputation scores across different network protocols used in Bitcoin networking. Scores are based on the successful delivery of unique and valuable block and transaction data, showing a comparative analysis of IP, Tor, and I2P network efficiencies.
 					</p>
 				</div>
-			</div>
+				<div class='col-6 image-container'>
+					<embed type='image/svg+xml' src='img/Network_Bar.svg' width='100%'
+						alt='Reputation Scores Comparison'></embed>
+					<p class='text-color'>
+						This bar chart compares the average positive reputation scores for networking protocols IP, Tor, and I2P, illustrating which protocols most effectively contribute valuable data to the Bitcoin network. It highlights the relative performance and reliability of each network in peer-to-peer communications.
+					</p>
+				</div>
+			</div>			
 
+			<hr>
+		
 			<p class='text-color'>
-				More information can be found in my <a href='publications'>publications</a> and <a
+				More information can be found on my <a href='publications'>publications</a> and <a
 					href='projects'>projects</a> pages.
 			</p>
-
-		</main>
+		
+		</main>		
 	</div>
 	<footer class='container-main footer text-color-dim bg-color-dim'>
 		<div class='row'>
@@ -149,7 +153,7 @@
 				var ctx = canvas.getContext('2d');
 				var img = new Image();
 				img.onload = function () {
-					ctx.drawImage(img, 0, 0, 600, 827);
+					ctx.drawImage(img, 0, 0, 800, 820);
 					canvas.classList.add('show');
 				}
 				img.src = 'img/profile.jpg';
