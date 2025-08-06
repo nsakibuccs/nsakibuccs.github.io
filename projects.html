@@ -129,6 +129,31 @@
 
 					<div class='card mb-4 text-color rounded card-border'>
 						<div class='card-header bg-color-dim'>
+							<h5 class='card-title text-color m-0'>Positive Reputation Score for Bitcoin</h5>
+						</div>
+						<div class='card-body rounded-bottom bg-card-color'>
+							<div class='row'>
+								<div class='col-lg-12 mb-3'>
+									<p class='card-text'>
+										<strong>Abstract:</strong> Cryptocurrency relies on the underlying P2P networking to deliver the up-to-date block and transaction information to synchronize and agree on the processed financial transactions. To maintain healthy connectivity, Bitcoin has implemented a negative reputation scheme based on ban score, which tracks the peer node behavior and results in dropping the peer connection if exceeding a threshold. Previous research in cryptocurrency security showed that such ban score can be both ineffective (easy to bypass to un-ban itself) and vulnerable (against spoofing-based defamation). We design and build a novel positive reputation scheme that addresses such deficiencies of ban score by having the peer behavior only positively impact our score and by disincentivizing switching the network ID for a new reputation score. We provide a general framework for the positive reputation scheme to enable the use of different networking sensing and measurements as well as different aggregate weights for scoring. Then, we provide a concrete instance and build of the positive reputation score scheme focusing on the peer's behavior in relaying unique/new blocks and transactions. We implement, experiment, and analyze our scheme on an active Bitcoin node connected to the Mainnet to show how our scheme provides the reputation and informs the beneficialness of each of its peer connections (delivering new block and transaction information).
+									</p>
+									<embed type='image/png' id='PositiveReputationScore' class='rounded' src='img/PositiveReputationScore.png' width='100%' alt='Positive Reputation Score Varying the Weights'>
+									<div class='d-flex gap-2 mt-3'>
+										<a href='https://doi.org/10.1109/CCNC51664.2024.10454756' target='_blank'
+											rel='noopener noreferrer' class='btn btn-primary btn-small'>View
+											Publication</a>
+									</div>
+								</div>
+							</div>
+							<div class='mt-3'>
+								<p class='mb-0'><strong>Citation:</strong> Simeon Wuthier, <u>Nazmus Sakib</u>, and Sang-Yoon Chang. "Positive reputation score for bitcoin  p2p network." In 2024 IEEE 21st Consumer Communications & Networking Conference (CCNC),  pp. 519-524. IEEE, 2024.
+							</div>
+						</div>
+					</div>
+
+
+					<div class='card mb-4 text-color rounded card-border'>
+						<div class='card-header bg-color-dim'>
 							<h5 class='card-title text-color m-0'>Bitcoin Over IP, Tor, I2P, CJDNS</h5>
 						</div>
 						<div class='card-body rounded-bottom bg-card-color'>
@@ -137,7 +162,9 @@
 									<p class='card-text'>
 										<strong>Abstract:</strong> Cryptocurrency is designed for anonymous financial transactions to avoid centralized control, censorship, and regulations. To protect anonymity in the underlying P2P networking, Bitcoin adopts and supports anonymous routing of Tor, I2P, and CJDNS. We analyze the networking performances of these anonymous routing with the focus on their impacts on the blockchain consensus protocol. Compared to non-anonymous routing, anonymous routing adds inherent-by-design latency performance costs due to the additions of the artificial P2P relays. However, we discover that the lack of ecosystem plays an even bigger factor in the performances of the anonymous routing for cryptocurrency blockchain. I2P and CJDNS, both advancing the anonymous routing beyond Tor, in particular lack the ecosystem of sizable networking-peer participation. I2P and CJDNS thus result in the Bitcoin experiencing networking partitioning, which has traditionally been researched and studied in cryptocurrency/blockchain security. We focus on I2P and Tor and compare them with the non-anonymous routing because CJDNS has no active public peers resulting in no connectivity. Tor results in slow propagation while I2P yields soft partition, which is a partition effect long enough to have a substantial impact in the PoW mining. To better study and identify the latency and the ecosystem factors of the cryptocurrency networking and consensus costs, we study the behaviors both in the connection manager (directly involved in the P2P networking) and the address manager (informing the connection manager of the peer selections on the backend). This paper presents our analyses results to inform the state of cryptocurrency blockchain with anonymous routing and discusses future work directions and recommendations to resolve the performance and partition issues.
 									</p>
-									<embed type='image/svg+xml' id='BitcoinOverAnonymousRouting' src='img/BitcoinOverAnonymousRouting.svg' width='100%' alt='Bitcoin Over Anonymous Routing'>
+									<center>
+										<embed type='image/svg+xml' id='BitcoinOverAnonymousRouting' src='img/BitcoinOverAnonymousRouting.svg' width='80%' alt='Bitcoin Over Anonymous Routing'>
+									</center>
 									<div class='d-flex gap-2 mt-3'>
 										<a href='https://doi.org/10.1109/ICBC59979.2024.10634476' target='_blank'
 											rel='noopener noreferrer' class='btn btn-primary btn-small'>View
