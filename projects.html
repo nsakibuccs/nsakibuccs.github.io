@@ -173,7 +173,7 @@
 								</div>
 							</div>
 							<div class='mt-3'>
-								<p class='mb-0'><strong>Citation:</strong> Sakib, Nazmus, et al. "From slow propagation to partition: Analyzing bitcoin over anonymous routing." 2024 IEEE International Conference on Blockchain and Cryptocurrency (ICBC). IEEE, 2024.
+								<p class='mb-0'><strong>Citation:</strong> <u>Nazmus Sakib</u>, Simeon Wuthier, Kelei Zhang, Xiaobo Zhou, and Sang-Yoon Chang. "From slow propagation to partition: Analyzing bitcoin over anonymous routing." In 2024 IEEE International Conference on Blockchain and Cryptocurrency (ICBC), pp. 377-385. IEEE, 2024
 							</div>
 						</div>
 					</div>
@@ -209,13 +209,13 @@
 							</div>
 						</div>
 					</div>
-					<h4>GitHub Repositories</h4>
+					
+					<!-- <h4>GitHub Repositories</h4>
 					<p>The repositories below are automatically generated and represents a spectrum of my
 						work. Projects marked with an <i data-feather='eye' style='width:15px; height:15px;'></i>
 						icon have a live demo hosted on GitHub Pages that can be previewed from within this page.</p>
 					<ul id='github-projects' class='list-group'>
-						<!-- GitHub repos will be inserted here -->
-					</ul>
+					</ul> -->
 
 				</div>
 			</div>
@@ -233,211 +233,211 @@
 	<script type='text/javascript' src='script.min.js'></script>
 
 	<script type='text/javascript'>
-		// Sanitize some HTML string to prevent cross-site scripting attacks
-		function sanitizeHTML(str) {
-			var div = document.createElement('div');
-			div.textContent = str;
-			return div.innerHTML;
-		}
+		// // Sanitize some HTML string to prevent cross-site scripting attacks
+		// function sanitizeHTML(str) {
+		// 	var div = document.createElement('div');
+		// 	div.textContent = str;
+		// 	return div.innerHTML;
+		// }
 
-		let repoDescriptions = {};
-		const additionalRepos = [
-			{ name: 'peer-connectivity-estimator/bitcoin-network-logger' },
-		];
+		// let repoDescriptions = {};
+		// const additionalRepos = [
+		// 	{ name: 'peer-connectivity-estimator/bitcoin-network-logger' },
+		// ];
 
-		// Generate the list of GitHub repositories and render them on the page
-		async function fetchGitHubRepos(username) {
-			const userRepoApiUrl = `https://api.github.com/users/${username}/repos?page=1&per_page=100`;
-			const skipZeroStarRepos = true;
-			let allRepos = [];
-			repoDescriptions = {};
-			try {
-				const cachedRepos = localStorage.getItem('githubRepos');
-				const cachedTimestamp = localStorage.getItem('githubReposTimestamp');
-				const oneDay = 24 * 60 * 60 * 1000; // milliseconds
-				const isCacheValid = cachedRepos && cachedTimestamp && (new Date() - new Date(cachedTimestamp) < oneDay);
+		// // Generate the list of GitHub repositories and render them on the page
+		// async function fetchGitHubRepos(username) {
+		// 	const userRepoApiUrl = `https://api.github.com/users/${username}/repos?page=1&per_page=100`;
+		// 	const skipZeroStarRepos = true;
+		// 	let allRepos = [];
+		// 	repoDescriptions = {};
+		// 	try {
+		// 		const cachedRepos = localStorage.getItem('githubRepos');
+		// 		const cachedTimestamp = localStorage.getItem('githubReposTimestamp');
+		// 		const oneDay = 24 * 60 * 60 * 1000; // milliseconds
+		// 		const isCacheValid = cachedRepos && cachedTimestamp && (new Date() - new Date(cachedTimestamp) < oneDay);
 
-				if (isCacheValid) {
-					// Use cached data
-					allRepos = JSON.parse(cachedRepos);
-				} else {
-					// Fetch user's personal repositories
-					const response = await fetch(userRepoApiUrl);
-					if (!response.ok) throw new Error(`GitHub API returned status ${response.status}`);
-					allRepos = await response.json();
-					for (let repo of allRepos) {
-						if (typeof repo.subscribers_count !== 'number') {
-							repo.subscribers_count = repo.watchers_count;
-						}
-					}
-					// Fetch additional repositories
-					for (let repoInfo of additionalRepos) {
-						let repoFullName;
-						if (typeof repoInfo === 'string') {
-							repoFullName = repoInfo;
-						} else if (typeof repoInfo === 'object') {
-							repoFullName = repoInfo.name;
-						} else {
-							repoInfo = {};
-						}
-						const [owner, repoName] = repoFullName.split('/');
-						const repoApiUrl = `https://api.github.com/repos/${owner}/${repoName}`;
-						const repoResponse = await fetch(repoApiUrl);
-						if (!repoResponse.ok) {
-							if (repoResponse.status === 404) {
-								// Assume the repository exists and set has_pages accordingly
-								const repoData = {
-									name: repoName,
-									owner: { login: owner, type: 'User' },
-									html_url: repoInfo.html_url || '',
-									description: repoInfo.description || '',
-									created_at: repoInfo.created_at || '',
-									updated_at: repoInfo.updated_at || '',
-									stargazers_count: repoInfo.stargazers_count || '',
-									forks_count: repoInfo.forks_count || '',
-									subscribers_count: repoInfo.subscribers_count || '',
-									has_pages: repoInfo.has_pages || false,
-									z_index: repoInfo.z_index || undefined,
-								};
-								allRepos.push(repoData);
-								continue;
-							} else if (repoResponse.status === 403) {
-								console.error('GitHub API rate limit exceeded. Preventing cache update.');
-								return;
-							}
-							console.error(`GitHub API returned status ${repoResponse.status} for repository ${repoFullName}`);
-						} else {
-							const repoData = await repoResponse.json();
-							// Add the new fields to the repo data
-							if (repoInfo.z_index) repoData.z_index = repoInfo.z_index;
-							allRepos.push(repoData);
-						}
-					}
-					// Store data and timestamp in localStorage
-					localStorage.setItem('githubRepos', JSON.stringify(allRepos));
-					localStorage.setItem('githubReposTimestamp', new Date().toISOString());
-				}
-				// Sorting and rendering logic
-				allRepos.sort((a, b) =>
-					((b.z_index ?? -Infinity) - (a.z_index ?? -Infinity)) ||
-					(b.stargazers_count - a.stargazers_count) ||
-					(b.forks_count - a.forks_count) ||
-					(b.has_pages - a.has_pages)
-				);
-				const repoList = document.getElementById('github-projects');
-				for (let repo of allRepos) {
-					if (skipZeroStarRepos && repo.stargazers_count === 0) continue;
-					let repoFullName = (repo.owner.type === 'Organization') ? `${repo.owner.login}/${repo.name}` : repo.name;
-					let repoUrl = repo.has_pages ? `https://${repo.owner.login}.github.io/${repo.name}` : `${repo.html_url}`;
-					let repoUrlSourceCode = repo.html_url;
-					let createdAt = new Date(repo.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-					let updatedAt = new Date(repo.updated_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-					let icon = repo.has_pages ? `<i data-feather="eye" class="text-color-dim repo-icon repo-icon-hover" onclick="showWebpage('${repoUrl}', '${repoUrlSourceCode}', '${repoFullName}')"></i>` : `<i data-feather="minus" class="text-color-dim repo-icon"></i>`;
-					let description = repo.description ? repo.description : '';
-					if (repo.description) repoDescriptions[repoUrl] = repo.description;
-					let badgeContent = [];
-					if (repo.stargazers_count) {
-						if (repo.stargazers_count === 1) badgeContent.push('1 star');
-						else if (repo.stargazers_count > 1) badgeContent.push(`${repo.stargazers_count} stars`);
-					}
-					if (repo.forks_count) {
-						if (repo.forks_count === 1) badgeContent.push('1 fork');
-						else if (repo.forks_count > 1) badgeContent.push(`${repo.forks_count} forks`);
-					}
-					if (typeof repo.subscribers_count === 'number' && repo.subscribers_count > 0) {
-						if (repo.subscribers_count === 1) badgeContent.push('1 watcher');
-						else badgeContent.push(`${repo.subscribers_count} watchers`);
-					}
-					let starBadge = badgeContent.length ? `<span class='badge badge-right badge-secondary border bg-color text-color-dim'>${badgeContent.join(', ')}</span>` : '';
-					let size = repo.size; 
-					if (typeof size === 'number') {
-						let unit = 'KB';
-						if (size >= 1e6) {
-							size = size / 1e6;
-							unit = 'GB';
-						} else if (size >= 1e3) {
-							size = size / 1e3;
-							unit = 'MB';
-						}
-						size = ' ' + Number(size.toPrecision(4)) + ' ' + unit + '.';
-					} else {
-						size = '';
-					}
+		// 		if (isCacheValid) {
+		// 			// Use cached data
+		// 			allRepos = JSON.parse(cachedRepos);
+		// 		} else {
+		// 			// Fetch user's personal repositories
+		// 			const response = await fetch(userRepoApiUrl);
+		// 			if (!response.ok) throw new Error(`GitHub API returned status ${response.status}`);
+		// 			allRepos = await response.json();
+		// 			for (let repo of allRepos) {
+		// 				if (typeof repo.subscribers_count !== 'number') {
+		// 					repo.subscribers_count = repo.watchers_count;
+		// 				}
+		// 			}
+		// 			// Fetch additional repositories
+		// 			for (let repoInfo of additionalRepos) {
+		// 				let repoFullName;
+		// 				if (typeof repoInfo === 'string') {
+		// 					repoFullName = repoInfo;
+		// 				} else if (typeof repoInfo === 'object') {
+		// 					repoFullName = repoInfo.name;
+		// 				} else {
+		// 					repoInfo = {};
+		// 				}
+		// 				const [owner, repoName] = repoFullName.split('/');
+		// 				const repoApiUrl = `https://api.github.com/repos/${owner}/${repoName}`;
+		// 				const repoResponse = await fetch(repoApiUrl);
+		// 				if (!repoResponse.ok) {
+		// 					if (repoResponse.status === 404) {
+		// 						// Assume the repository exists and set has_pages accordingly
+		// 						const repoData = {
+		// 							name: repoName,
+		// 							owner: { login: owner, type: 'User' },
+		// 							html_url: repoInfo.html_url || '',
+		// 							description: repoInfo.description || '',
+		// 							created_at: repoInfo.created_at || '',
+		// 							updated_at: repoInfo.updated_at || '',
+		// 							stargazers_count: repoInfo.stargazers_count || '',
+		// 							forks_count: repoInfo.forks_count || '',
+		// 							subscribers_count: repoInfo.subscribers_count || '',
+		// 							has_pages: repoInfo.has_pages || false,
+		// 							z_index: repoInfo.z_index || undefined,
+		// 						};
+		// 						allRepos.push(repoData);
+		// 						continue;
+		// 					} else if (repoResponse.status === 403) {
+		// 						console.error('GitHub API rate limit exceeded. Preventing cache update.');
+		// 						return;
+		// 					}
+		// 					console.error(`GitHub API returned status ${repoResponse.status} for repository ${repoFullName}`);
+		// 				} else {
+		// 					const repoData = await repoResponse.json();
+		// 					// Add the new fields to the repo data
+		// 					if (repoInfo.z_index) repoData.z_index = repoInfo.z_index;
+		// 					allRepos.push(repoData);
+		// 				}
+		// 			}
+		// 			// Store data and timestamp in localStorage
+		// 			localStorage.setItem('githubRepos', JSON.stringify(allRepos));
+		// 			localStorage.setItem('githubReposTimestamp', new Date().toISOString());
+		// 		}
+		// 		// Sorting and rendering logic
+		// 		allRepos.sort((a, b) =>
+		// 			((b.z_index ?? -Infinity) - (a.z_index ?? -Infinity)) ||
+		// 			(b.stargazers_count - a.stargazers_count) ||
+		// 			(b.forks_count - a.forks_count) ||
+		// 			(b.has_pages - a.has_pages)
+		// 		);
+		// 		const repoList = document.getElementById('github-projects');
+		// 		for (let repo of allRepos) {
+		// 			if (skipZeroStarRepos && repo.stargazers_count === 0) continue;
+		// 			let repoFullName = (repo.owner.type === 'Organization') ? `${repo.owner.login}/${repo.name}` : repo.name;
+		// 			let repoUrl = repo.has_pages ? `https://${repo.owner.login}.github.io/${repo.name}` : `${repo.html_url}`;
+		// 			let repoUrlSourceCode = repo.html_url;
+		// 			let createdAt = new Date(repo.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+		// 			let updatedAt = new Date(repo.updated_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+		// 			let icon = repo.has_pages ? `<i data-feather="eye" class="text-color-dim repo-icon repo-icon-hover" onclick="showWebpage('${repoUrl}', '${repoUrlSourceCode}', '${repoFullName}')"></i>` : `<i data-feather="minus" class="text-color-dim repo-icon"></i>`;
+		// 			let description = repo.description ? repo.description : '';
+		// 			if (repo.description) repoDescriptions[repoUrl] = repo.description;
+		// 			let badgeContent = [];
+		// 			if (repo.stargazers_count) {
+		// 				if (repo.stargazers_count === 1) badgeContent.push('1 star');
+		// 				else if (repo.stargazers_count > 1) badgeContent.push(`${repo.stargazers_count} stars`);
+		// 			}
+		// 			if (repo.forks_count) {
+		// 				if (repo.forks_count === 1) badgeContent.push('1 fork');
+		// 				else if (repo.forks_count > 1) badgeContent.push(`${repo.forks_count} forks`);
+		// 			}
+		// 			if (typeof repo.subscribers_count === 'number' && repo.subscribers_count > 0) {
+		// 				if (repo.subscribers_count === 1) badgeContent.push('1 watcher');
+		// 				else badgeContent.push(`${repo.subscribers_count} watchers`);
+		// 			}
+		// 			let starBadge = badgeContent.length ? `<span class='badge badge-right badge-secondary border bg-color text-color-dim'>${badgeContent.join(', ')}</span>` : '';
+		// 			let size = repo.size; 
+		// 			if (typeof size === 'number') {
+		// 				let unit = 'KB';
+		// 				if (size >= 1e6) {
+		// 					size = size / 1e6;
+		// 					unit = 'GB';
+		// 				} else if (size >= 1e3) {
+		// 					size = size / 1e3;
+		// 					unit = 'MB';
+		// 				}
+		// 				size = ' ' + Number(size.toPrecision(4)) + ' ' + unit + '.';
+		// 			} else {
+		// 				size = '';
+		// 			}
 
-					let sanitizedDescription = sanitizeHTML(repo.description || '');
-					repoFullNameReplaceUnderscore = repoFullName
-						.replace(/[_-]/g, ' ')
-						.replace(/ plus plus/gi, '++')
-						.replace(/usnistgov/gi, 'USNISTGOV')
-						.replace(/o ran/gi, 'O-RAN')
-						.replace(/\//g, ' / ')
-						.replace(/aes/gi, 'AES')
-						.replace(/anti /gi, 'anti-')
-						.replace(/cpp/gi, 'C++')
-						.replace(/des/gi, 'DES')
-						.replace(/pdf/gi, 'PDF')
-						.replace(/tcp udp/gi, 'TCP & UDP')
-						.replace(/ui/gi, 'UI')
-						.replace(/ux/gi, 'UX')
-						.replace(/\.sol/gi, '.SOL')
-						.replace(/my linux/gi, 'custom linux')
+		// 			let sanitizedDescription = sanitizeHTML(repo.description || '');
+		// 			repoFullNameReplaceUnderscore = repoFullName
+		// 				.replace(/[_-]/g, ' ')
+		// 				.replace(/ plus plus/gi, '++')
+		// 				.replace(/usnistgov/gi, 'USNISTGOV')
+		// 				.replace(/o ran/gi, 'O-RAN')
+		// 				.replace(/\//g, ' / ')
+		// 				.replace(/aes/gi, 'AES')
+		// 				.replace(/anti /gi, 'anti-')
+		// 				.replace(/cpp/gi, 'C++')
+		// 				.replace(/des/gi, 'DES')
+		// 				.replace(/pdf/gi, 'PDF')
+		// 				.replace(/tcp udp/gi, 'TCP & UDP')
+		// 				.replace(/ui/gi, 'UI')
+		// 				.replace(/ux/gi, 'UX')
+		// 				.replace(/\.sol/gi, '.SOL')
+		// 				.replace(/my linux/gi, 'custom linux')
 					
-					let dateRange = '';
-					if (createdAt != 'Invalid Date' && updatedAt != 'Invalid Date') {
-						dateRange = `${createdAt} - ${updatedAt}. `;
-					}
-					let repoItem = `<li class='list-group-item bg-color-dim text-color fade show'>${icon} <a href='${repoUrl}' target='_blank' rel='noopener noreferrer' class='text-color-dim text-decoration-none text-capitalize fs-5' rel='noopener noreferrer' class='text-color'><strong>${repoFullNameReplaceUnderscore}</strong></a> ${starBadge}<br>${dateRange}${sanitizedDescription}${size}<br></li>`;
-					repoList.innerHTML += repoItem;
-				}
-				// Update the icons on the page
-				feather.replace({
-					'aria-hidden': 'true'
-				});
-				document.querySelectorAll('.repo-icon').forEach(icon => { icon.setAttribute('width', '25'); icon.setAttribute('height', '25'); });
-				// Optionally, show the other subsections on the page
-				// document.getElementById('nintendoSectionExpander').hidden = false;
-				// document.getElementById('additionalonExpander').hidden = false;
-			} catch (error) {
-				const repoList = document.getElementById('github-projects');
-				repoList.innerHTML += `<li class='list-group-item bg-color-dim text-color fade show'>Error fetching repositories: ${error.message}</li>`;
-			}
-		}
+		// 			let dateRange = '';
+		// 			if (createdAt != 'Invalid Date' && updatedAt != 'Invalid Date') {
+		// 				dateRange = `${createdAt} - ${updatedAt}. `;
+		// 			}
+		// 			let repoItem = `<li class='list-group-item bg-color-dim text-color fade show'>${icon} <a href='${repoUrl}' target='_blank' rel='noopener noreferrer' class='text-color-dim text-decoration-none text-capitalize fs-5' rel='noopener noreferrer' class='text-color'><strong>${repoFullNameReplaceUnderscore}</strong></a> ${starBadge}<br>${dateRange}${sanitizedDescription}${size}<br></li>`;
+		// 			repoList.innerHTML += repoItem;
+		// 		}
+		// 		// Update the icons on the page
+		// 		feather.replace({
+		// 			'aria-hidden': 'true'
+		// 		});
+		// 		document.querySelectorAll('.repo-icon').forEach(icon => { icon.setAttribute('width', '25'); icon.setAttribute('height', '25'); });
+		// 		// Optionally, show the other subsections on the page
+		// 		// document.getElementById('nintendoSectionExpander').hidden = false;
+		// 		// document.getElementById('additionalonExpander').hidden = false;
+		// 	} catch (error) {
+		// 		const repoList = document.getElementById('github-projects');
+		// 		repoList.innerHTML += `<li class='list-group-item bg-color-dim text-color fade show'>Error fetching repositories: ${error.message}</li>`;
+		// 	}
+		// }
 
-		// Show a modal with an embedded webpage to preview the project in action
-		function showWebpage(url, urlSourceCode, repoName) {
-			const modalIframe = document.querySelector('#webpageModal .webpage-frame');
-			const modalTitle = document.querySelector('#webpageModalTitle');
-			const modalTitleSourceCode = document.querySelector('#webpageModalTitleSourceCode');
-			const description = repoDescriptions[url] || '';
-			if (description != '') {
-				document.getElementById('webpageModalDescriptionWrapper').style.display = 'block';
-				document.getElementById('webpageModalDescription').innerText = description;
-			} else {
-				document.getElementById('webpageModalDescriptionWrapper').style.display = 'none';
-				document.getElementById('webpageModalDescription').innerText = '';
-			}
-			modalIframe.src = url;
-			modalTitle.textContent = repoName;
-			modalTitle.href = url;
-			if (urlSourceCode == '') {
-				modalTitleSourceCode.innerHTML = ' from another tab';
-			} else {
-				modalTitleSourceCode.innerHTML = `, or its <a href='${urlSourceCode}' target='_blank' rel='noopener noreferrer' class='text-color-dim text-decoration-none' rel='noopener noreferrer' class='text-color'>source code</a>`;
-				refreshColors();
-			}
+		// // Show a modal with an embedded webpage to preview the project in action
+		// function showWebpage(url, urlSourceCode, repoName) {
+		// 	const modalIframe = document.querySelector('#webpageModal .webpage-frame');
+		// 	const modalTitle = document.querySelector('#webpageModalTitle');
+		// 	const modalTitleSourceCode = document.querySelector('#webpageModalTitleSourceCode');
+		// 	const description = repoDescriptions[url] || '';
+		// 	if (description != '') {
+		// 		document.getElementById('webpageModalDescriptionWrapper').style.display = 'block';
+		// 		document.getElementById('webpageModalDescription').innerText = description;
+		// 	} else {
+		// 		document.getElementById('webpageModalDescriptionWrapper').style.display = 'none';
+		// 		document.getElementById('webpageModalDescription').innerText = '';
+		// 	}
+		// 	modalIframe.src = url;
+		// 	modalTitle.textContent = repoName;
+		// 	modalTitle.href = url;
+		// 	if (urlSourceCode == '') {
+		// 		modalTitleSourceCode.innerHTML = ' from another tab';
+		// 	} else {
+		// 		modalTitleSourceCode.innerHTML = `, or its <a href='${urlSourceCode}' target='_blank' rel='noopener noreferrer' class='text-color-dim text-decoration-none' rel='noopener noreferrer' class='text-color'>source code</a>`;
+		// 		refreshColors();
+		// 	}
 			
-			const modal = new bootstrap.Modal(document.getElementById('webpageModal'));
+		// 	const modal = new bootstrap.Modal(document.getElementById('webpageModal'));
 
-			let modalHeight = document.getElementById('webpageModal').offsetHeight;
-			document.getElementById('webpage').style.height = (window.innerHeight - modalHeight) - 185 + 'px';
-			modalIframe.style.opacity = '0';
-			modal.show();
+		// 	let modalHeight = document.getElementById('webpageModal').offsetHeight;
+		// 	document.getElementById('webpage').style.height = (window.innerHeight - modalHeight) - 185 + 'px';
+		// 	modalIframe.style.opacity = '0';
+		// 	modal.show();
 			
-			modalIframe.onload = function() {
-				modalIframe.style.transition = 'opacity 0.5s';
-				modalIframe.style.opacity = 1;
-			};
-		}
+		// 	modalIframe.onload = function() {
+		// 		modalIframe.style.transition = 'opacity 0.5s';
+		// 		modalIframe.style.opacity = 1;
+		// 	};
+		// }
 
 		// Animate the expand/collapse buttons
 		document.querySelectorAll('.expand-button').forEach(function (button) {
