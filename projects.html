@@ -128,29 +128,114 @@
 					<br>
 
 
-					<div class='card mb-4 text-color rounded card-border'>
-						<div class='card-header bg-color-dim'>
-							<h5 class='card-title text-color m-0'>DyPBP: Dynamic Peer Beneficialness Prediction for Cryptocurrency P2P Networking</h5>
-						</div>
-						<div class='card-body rounded-bottom bg-card-color'>
-							<div class='row'>
-								<div class='col-lg-12 mb-3'>
-									<p class='card-text'>
-										<strong>Abstract:</strong>Distributed peer-to-peer (P2P) networking delivers the new blocks and transactions and is critical for the cryptocurrency blockchain system operations. Having poor P2P connectivity reduces the financial rewards from the mining consensus protocol. Previous research defines beneficalness of each Bitcoin peer connection and estimates the beneficialness based on the observations of the blocks and transactions delivery, which are after they are delivered. However, due to the infrequent block arrivals and the sporadic and unstable peer connections, the peers do not stay connected long enough to have the beneficialness score to converge to its expected beneficialness. We design and build Dynamic Peer Beneficialness Prediction (DyPBP) which predicts a peer’s beneficialness by using networking behavior observations beyond just the block and transaction arrivals. DyPBP advances the previous research by estimating the beneficialness of a peer connection before it delivers new blocks and transactions. To achieve such goal, DyPBP introduces a new feature for remembrance to address the dynamic connectivity issue, as Bitcoin’s peers using distributed networking often disconnect and re-connect. We implement DyPBP on an active Bitcoin node connected to the Mainnet and use machine learning for the beneficialness prediction. Our experimental results validate and evaluate the effectiveness of DyPBP; for example, the error performance improves by 2 to 13 orders of magnitude depending on the machine-learning model selection. DyPBP’s use of the remembrance feature also informs our model selection. DyPBP enables the P2P connection’s beneficialness estimation from the connection start before a new block arrives.
-									</p>
-									<embed type='image/png' id='DyPBP' class='rounded' src='img/DyPBP.png' width='100%' alt='DyPBP'>
-									<div class='d-flex gap-2 mt-3'>
-										<a href='https://arxiv.org/abs/2511.17523' target='_blank'
-											rel='noopener noreferrer' class='btn btn-primary btn-small'>View
-											Publication</a>
-									</div>
-								</div>
-							</div>
-							<div class='mt-3'>
-								<p class='mb-0'><strong>Citation:</strong> <u>Nazmus Sakib</u>,  Simeon Wuthier, Amanul Islam, Xiaobo Zhou, Jinoh Kim, Ikkyun Kim, Sang-Yoon Chang. "DyPBP: Dynamic Peer Beneficialness Prediction for Cryptocurrency P2P Networking." In arXiv preprint arXiv:2511.17523, 2025.
-							</div>
-						</div>
-					</div>
+<div class="card mb-4 text-color rounded card-border">
+    
+    <div class="card-header bg-color-dim">
+        <h5 class="card-title text-color m-0">
+            Analyzing Bitcoin Over Anonymous Routing
+        </h5>
+    </div>
+
+    <div class="card-body rounded-bottom bg-card-color">
+
+        <div class="row">
+            <div class="col-lg-12 mb-3">
+
+                <p class="card-text">
+                    <u>Data-Driven Analysis</u>: In [1], we empirically investigate how anonymous routing affects Bitcoin by running private nodes connected to the Mainnet over IP, Tor, I2P, and CJDNS. To conduct a data-driven analysis, we build a logger that senses and collects samples every 10 seconds and generates datasets for each routing setting. The logger records multi-layer data, including: PoW consensus: block propagation time, fork length, network difficulty, etc. Network level: inbound/outbound counts, unique blocks/transactions, Bitcoin PING RTT, ICMP RTT, etc. Address manager/Connection manager: new/tried bucket state, added/removed addresses, address type, scores (e.g., fChance, isTerrible), etc. P2P protocol: message-type counts/sizes (e.g., INV, GETDATA, BLOCK, etc.). System: CPU/memory usages, network bytes/packets, etc.
+
+Using datasets, we analyze application behavior, network performance, and PoW impact under each routing setting. The results show that Bitcoin over Tor suffers slow propagation, Bitcoin over I2P causes soft partitioning (e.g., >20% mining wastage), and Bitcoin over CJDNS leads to a partitioned network (e.g., no connectivity). <u>To the best of our knowledge, this work is the first real-world study showing that anonymous routing by itself without any attacker can cause persistent propagation delays and partition-like behavior in permissionless blockchains.</u>
+                </p>
+
+                <!-- IMAGE FIXED -->
+                <img 
+                    id="DyPBP"
+                    class="img-fluid rounded mt-3"
+                    src="img/Dataset2.svg"
+                    alt="DyPBP Dataset Overview"
+                    style="width:100%; height:auto;"
+                >
+				
+                <div class="d-flex gap-2 mt-3">
+                    <a href="https://doi.org/10.1109/ICBC59979.2024.10634476"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn btn-primary btn-sm">
+                        View Publication
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <p class="mb-0">
+                <strong>[1] </strong>
+                <u>Nazmus Sakib</u>, Simeon Wuthier, Kelei Zhang, Xiaobo Zhou, and Sang-Yoon Chang. "From slow propagation to partition: Analyzing bitcoin over anonymous routing." In 2024 IEEE International Conference on Blockchain and Cryptocurrency (ICBC), pp. 377-385. IEEE, 2024.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="card mb-4 text-color rounded card-border">
+    
+    <div class="card-header bg-color-dim">
+        <h5 class="card-title text-color m-0">
+            Leveraging ML for Anonymous Networking Detection in Cryptocurrency
+        </h5>
+    </div>
+
+    <div class="card-body rounded-bottom bg-card-color">
+
+        <div class="row">
+            <div class="col-lg-12 mb-3">
+
+                <p class="card-text">
+                    <u>Proposed Solution</u>: Building on the Mainnet datasets [1], in [2-3], we investigate how to detect the use of anonymous routing in cryptocurrency, where peers can falsely claim to use Tor or I2P. Simple profile-based detection using deterministic rules (e.g., fixed latency thresholds or IP-based rules) is vulnerable to spoofing, as adversarial peers can easily manipulate these features. To address this problem, we propose an ML-based network fingerprinting that infers how traffic is routed based on measured network behavior rather than untrusted identifiers. We use the datasets from [1] as training/testing, where the logger records routing-specific data from Mainnet runs. We train three supervised models, including Random Forest, CatBoost, and HistGradientBoosting, to learn routing-specific patterns and detect spoofed claims. Our results show that ML can reliably distinguish IP, Tor, and I2P and detect peers that falsely claim, achieving up to 93% accuracy for spoofed Tor detection and 94% accuracy for spoofed I2P detection. This enables practical anonymity-aware security mechanisms.
+                <!-- IMAGE FIXED -->
+                <img 
+                    id="DyPBP"
+                    class="img-fluid rounded mt-3"
+                    src="img/ML-Fingerprinting.png"
+                    alt="DyPBP Dataset Overview"
+                    style="width:100%; height:auto;"
+                >
+
+                <div class="d-flex gap-2 mt-3">
+                    <a href="https://doi.org/10.1109/CCNC54725.2025.10976162"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn btn-primary btn-sm">
+                        View Publication
+                    </a>
+					<a href="https://doi.org/10.3390/electronics14112101"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn btn-primary btn-sm">
+                        View Publication
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <p class="mb-0">
+				<strong>[2] </strong>
+                Amanul Islam, <u>Nazmus Sakib</u>, Kelei Zhang, Simeon Wuthier, and Sang-Yoon Chang “Network Fingerprinting Using Machine Learning for Anonymous Networking Detection in Cryptocurrency.” IEEE 22nd Consumer Communications & Networking Conference (CCNC), pages=1-6., 2025.
+            </p>
+			<p class="mb-0">
+				<strong>[3] </strong>
+                Amanul Islam, <u>Nazmus Sakib</u>, Kelei Zhang, Simeon Wuthier, and Sang-Yoon Chang. “Anonymous Networking Detection in Cryptocurrency Using Network Fingerprinting and Machine Learning.” Electronics, Vol. 14, No. 11, 2025.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+
 
 
 
