@@ -241,15 +241,15 @@ Using datasets, we analyze application behavior, network performance, and PoW im
 
 					<div class='card mb-4 text-color rounded card-border'>
 						<div class='card-header bg-color-dim'>
-							<h5 class='card-title text-color m-0'>Positive Reputation Score for Bitcoin</h5>
+							<h5 class='card-title text-color m-0'>Building Intelligence for Peer Evaluation Based on Networking Behavior</h5>
 						</div>
 						<div class='card-body rounded-bottom bg-card-color'>
 							<div class='row'>
 								<div class='col-lg-12 mb-3'>
 									<p class='card-text'>
-										<strong>Abstract:</strong> Cryptocurrency relies on the underlying P2P networking to deliver the up-to-date block and transaction information to synchronize and agree on the processed financial transactions. To maintain healthy connectivity, Bitcoin has implemented a negative reputation scheme based on ban score, which tracks the peer node behavior and results in dropping the peer connection if exceeding a threshold. Previous research in cryptocurrency security showed that such ban score can be both ineffective (easy to bypass to un-ban itself) and vulnerable (against spoofing-based defamation). We design and build a novel positive reputation scheme that addresses such deficiencies of ban score by having the peer behavior only positively impact our score and by disincentivizing switching the network ID for a new reputation score. We provide a general framework for the positive reputation scheme to enable the use of different networking sensing and measurements as well as different aggregate weights for scoring. Then, we provide a concrete instance and build of the positive reputation score scheme focusing on the peer's behavior in relaying unique/new blocks and transactions. We implement, experiment, and analyze our scheme on an active Bitcoin node connected to the Mainnet to show how our scheme provides the reputation and informs the beneficialness of each of its peer connections (delivering new block and transaction information).
+										<u>Proposed Solution</u>: Building on the Mainnet peers' logs [1], in [4], we take an initial step toward building intelligence for peer evaluation by defining and quantifying peer beneficialness using observable networking behavior. We compute beneficialness directly from the logger [1]. In Bitcoin, peers implicitly compete to relay unique blocks and transactions as early as possible, and peers that consistently deliver unique information first contribute directly to faster block propagation and stronger consensus. However, Bitcoin’s current peer management mainly focuses on detecting misbehavior and does not identify peers that actively contribute to the network. Using the datasets [1], we propose a beneficialness scoring that turns networking behavior into a direct measure of peer contribution. Each peer is assigned a default beneficialness score of zero, which is incremented whenever the peer is the first to relay a unique block or transaction. To capture the dynamic nature of peer behavior and changing network conditions, we incorporate a decay mechanism that gradually reduces the influence of older contributions, ensuring that recent behavior has greater impact on the score. We implement, run, and analyze this scoring on an active Bitcoin node connected to the Mainnet under the same routing settings used in [1], showing that the score works for both non-anonymous and anonymous networking. This beneficialness score is further used as the supervised learning labels in DyPBP [5].
 									</p>
-									<embed type='image/png' id='PositiveReputationScore' class='rounded' src='img/PositiveReputationScore.png' width='100%' alt='Positive Reputation Score Varying the Weights'>
+									<embed type='image/png' id='PositiveReputationScore' class='rounded' src='img/positiveReputation.png' width='100%' alt='Positive Reputation Score Varying the Weights'>
 									<div class='d-flex gap-2 mt-3'>
 										<a href='https://doi.org/10.1109/CCNC51664.2024.10454756' target='_blank'
 											rel='noopener noreferrer' class='btn btn-primary btn-small'>View
@@ -258,7 +258,7 @@ Using datasets, we analyze application behavior, network performance, and PoW im
 								</div>
 							</div>
 							<div class='mt-3'>
-								<p class='mb-0'><strong>Citation:</strong> Simeon Wuthier, <u>Nazmus Sakib</u>, and Sang-Yoon Chang. "Positive reputation score for bitcoin  p2p network." In 2024 IEEE 21st Consumer Communications & Networking Conference (CCNC),  pp. 519-524. IEEE, 2024.
+								<p class='mb-0'>[4] Simeon Wuthier, <u>Nazmus Sakib</u>, and Sang-Yoon Chang. "Positive reputation score for bitcoin  p2p network." In 2024 IEEE 21st Consumer Communications & Networking Conference (CCNC),  pp. 519-524. IEEE, 2024.
 							</div>
 						</div>
 					</div>
@@ -266,26 +266,23 @@ Using datasets, we analyze application behavior, network performance, and PoW im
 
 					<div class='card mb-4 text-color rounded card-border'>
 						<div class='card-header bg-color-dim'>
-							<h5 class='card-title text-color m-0'>Bitcoin Over IP, Tor, I2P, CJDNS</h5>
+							<h5 class='card-title text-color m-0'>Leveraging ML to Estimate Peer Beneficialness Based on Built Intelligence</h5>
 						</div>
 						<div class='card-body rounded-bottom bg-card-color'>
 							<div class='row'>
 								<div class='col-lg-12 mb-3'>
 									<p class='card-text'>
-										<strong>Abstract:</strong> Cryptocurrency is designed for anonymous financial transactions to avoid centralized control, censorship, and regulations. To protect anonymity in the underlying P2P networking, Bitcoin adopts and supports anonymous routing of Tor, I2P, and CJDNS. We analyze the networking performances of these anonymous routing with the focus on their impacts on the blockchain consensus protocol. Compared to non-anonymous routing, anonymous routing adds inherent-by-design latency performance costs due to the additions of the artificial P2P relays. However, we discover that the lack of ecosystem plays an even bigger factor in the performances of the anonymous routing for cryptocurrency blockchain. I2P and CJDNS, both advancing the anonymous routing beyond Tor, in particular lack the ecosystem of sizable networking-peer participation. I2P and CJDNS thus result in the Bitcoin experiencing networking partitioning, which has traditionally been researched and studied in cryptocurrency/blockchain security. We focus on I2P and Tor and compare them with the non-anonymous routing because CJDNS has no active public peers resulting in no connectivity. Tor results in slow propagation while I2P yields soft partition, which is a partition effect long enough to have a substantial impact in the PoW mining. To better study and identify the latency and the ecosystem factors of the cryptocurrency networking and consensus costs, we study the behaviors both in the connection manager (directly involved in the P2P networking) and the address manager (informing the connection manager of the peer selections on the backend). This paper presents our analyses results to inform the state of cryptocurrency blockchain with anonymous routing and discusses future work directions and recommendations to resolve the performance and partition issues.
-									</p>
-									<center>
-										<embed type='image/svg+xml' id='BitcoinOverAnonymousRouting' src='img/BitcoinOverAnonymousRouting.svg' width='80%' alt='Bitcoin Over Anonymous Routing'>
-									</center>
+										<u>Proposed Solution</u>: In [5], we extend the peer evaluation intelligence built in [4] by applying ML to estimate beneficialness early, even before the next block arrives. This is crucial since blocks arrive roughly once every 10 minutes and many peers disconnect before a rule-based score becomes stable. We design Dynamic Peer Beneficialness Prediction (DyPBP), an ML-based approach that predicts a peer’s beneficialness continuously from networking behavior. DyPBP trains on the Mainnet peer logs and network features collected in [1] and uses the beneficialness score from [4] as the supervised learning label. DyPBP also adds a remembrance feature that keeps a peer’s state across disconnect/reconnect so the model can learn from both past and recent behavior. We implement DyPBP on an active Bitcoin node connected to the Mainnet and evaluate Linear Regression, Random Forest, and KNN. Our results show large accuracy gains; 2 to 13 orders of magnitude lower error depending on the model selection and remembrance enabled/disabled. Building on this foundation, ongoing work extends DyPBP by incorporating more expressive learning architectures, including Transformer-based models, to further improve prediction accuracy and robustness.
+									<embed type='image/png' id='PositiveReputationScore' class='rounded' src='img/DyPBP.png' width='100%' alt='Positive Reputation Score Varying the Weights'>
 									<div class='d-flex gap-2 mt-3'>
-										<a href='https://doi.org/10.1109/ICBC59979.2024.10634476' target='_blank'
+										<a href='https://doi.org/10.48550/arXiv.2511.17523' target='_blank'
 											rel='noopener noreferrer' class='btn btn-primary btn-small'>View
 											Publication</a>
 									</div>
 								</div>
 							</div>
 							<div class='mt-3'>
-								<p class='mb-0'><strong>Citation:</strong> <u>Nazmus Sakib</u>, Simeon Wuthier, Kelei Zhang, Xiaobo Zhou, and Sang-Yoon Chang. "From slow propagation to partition: Analyzing bitcoin over anonymous routing." In 2024 IEEE International Conference on Blockchain and Cryptocurrency (ICBC), pp. 377-385. IEEE, 2024
+								<p class='mb-0'>[5] <u>Nazmus Sakib</u>, Simeon Wuthier, Amanul Islam, Xiaobo Zhou, Jinoh Kim, Ikkyun Kim, and Sang-Yoon Chang “DyPBP: Dynamic Peer Beneficialness Prediction for Cryptocurrency P2P Networking.” arXiv preprint arXiv:2511.17523., 2025.
 							</div>
 						</div>
 					</div>
@@ -295,64 +292,70 @@ Using datasets, we analyze application behavior, network performance, and PoW im
 
 					<div class='card mb-4 text-color rounded card-border'>
 						<div class='card-header bg-color-dim'>
-							<h5 class='card-title text-color m-0'>Network Fingerprinting Using Machine Learning for Anonymous Networking Detection in Cryptocurrency</h5>
+							<h5 class='card-title text-color m-0'>Design an Intelligence-Enabled Low-Latency Tor for Cryptocurrency</h5>
 						</div>
 						<div class='card-body rounded-bottom bg-card-color'>
 							<div class='row'>
 								<div class='col-lg-12 mb-3'>
 									<p class='card-text'>
-										<strong>Abstract: Cryptocurrency such as Bitcoin supports anonymous routing (Tor and I2P) because of the application requirements of anonymity and censorship resistance. In permissionless and open networking for cryptocurrency, an adversary can spoof to pretend to use Tor or I2P for anonymity and privacy protection, while in reality it is not using anonymous routing and forwarding its networking directly to the destination peer to reduce the networking overheads. Using profile detection to detect anonymous routing and false claims based on the deterministic features are vulnerable to spoofing, especially in the permissionless cryptocurrency bypassing registration control. We therefore design and build network fingerprinting using the networking behaviors to detect and classify the networking types. We build a network sensor to collect data on an active Bitcoin node connected to the Mainnet and apply supervised machine learning to classify if a peer node is using IP (not anonymous), Tor, or I2P. Our results show that our scheme is effective in accurately detecting the networking types and identifying spoofing attempts through supervised machine learning. Our machine learning model accurately classifies the networking types and detects fake claims of Tor usage with 90% accuracy and false claims of I2P with 87% accuracy in permissionless Bitcoin.</strong> 
-									</p>
-									<embed type='image/png' id='PositiveReputationScore' class='rounded' src='img/loggingProcess.png' width='100%' alt='Positive Reputation Score Varying the Weights'>
+										<u>Proposed Solution</u>: In [6], we build a Quick Tor prototype to reduce the propagation delay of Vanilla Tor observed in [1]. Quick Tor adds a latency intelligence layer on top of Vanilla Tor’s consensus directory, without changing its architecture: (1) Relay-relay latency: our running Tor middle relays periodically measure latency to entry and exit relays and publish these measurements every hour, aligned with Tor’s consensus update cycle. (2) Tor client-relay latency: each Tor client also measures its own latency to entry relays and keeps these measurements locally. (3) Threshold-based relay filtering (τ): during circuit build, the Tor client filters relays whose latency exceeds a user-chosen threshold τ, then builds circuits from the remaining relays to reduce circuit latency while preserving anonymity. We empirically implement and evaluate Quick Tor by integrating it with Bitcoin Mainnet and running PoW mining experiments where only the routing settings change (IP vs. Vanilla Tor vs. Quick Tor). We quantify the PoW impact using a latency-to-profit estimation, translating propagation delay into mining reward loss at miner. Our results show that Quick Tor improves latency by up to 43.96%, leading to annual savings of up to 500.7 million for MARA Holdings, a large mining farm.
+									<embed type='image/png' id='PositiveReputationScore' class='rounded' src='img/QuickTor.png' width='100%' alt='Positive Reputation Score Varying the Weights'>
 									<div class='d-flex gap-2 mt-3'>
-										<a href='https://doi.org/10.1109/CCNC54725.2025.10976162' target='_blank'
+										<a href='' target='_blank'
 											rel='noopener noreferrer' class='btn btn-primary btn-small'>View
 											Publication</a>
 									</div>
 								</div>
 							</div>
 							<div class='mt-3'>
-								<p class='mb-0'><strong>Citation:</strong> Amanul Islam, <u>Nazmus Sakib</u>, Kelei Zhang, Simeon Wuthier, and Sang-Yoon Chang. "Network Fingerprinting Using Machine Learning for Anonymous Networking Detection in Cryptocurrency." In 2025 IEEE 22nd Consumer Communications & Networking Conference (CCNC), pp. 1-6. IEEE, 2025. 
+								<p class='mb-0'>[6] <u>Nazmus Sakib</u>, Kelei Zhang, Simeon Wuthier, Wenjun Fan, and Sang-Yoon Chang “Tor for Cryptocurrency: Enhancing Mining Rewards while Preserving Anonymity.” Silicon Valley Cybersecurity Conference (SVCC)., 2026. [Under Review]
 							</div>
 						</div>
 					</div>
 
+
+
+
 					<div class='card mb-4 text-color rounded card-border'>
 						<div class='card-header bg-color-dim'>
-							<h5 class='card-title text-color m-0'>Analyzing and Modeling Connection Impact on Distributed Consensus in Cryptocurrency Blockchain</h5>
+							<h5 class='card-title text-color m-0'>Modeling Incentive-Aware P2P Connectivity in Cryptocurrency Blockchain</h5>
 						</div>
 						<div class='card-body rounded-bottom bg-card-color'>
 							<div class='row'>
 								<div class='col-lg-12 mb-3'>
 									<p class='card-text'>
-										<strong>Abstract: Blockchain systems and cryptocurrencies rely on the peer-to-peer (P2P) networking to deliver and broadcast the latest blocks and transactions. Such networking is critical, because the delivered information enable the distributed consensus protocol and have direct impacts on the miner’s rewards and incomes in the proof-of-work (PoW) cryptocurrencies such as Bitcoin. We study the interplay between the P2P networking and the PoW distributed consensus protocol by controlling the number of P2P connections and analyzing its impacts on the miner’s rewards and costs. While the mining reward increases as the connection increases, which is known in the Bitcoin community, the optimal control for maximizing the income (reward minus cost) is bounded and finite in practice due to the networking and mining costs. In this paper, we theoretically model the utility and miner’s net-income of the consensus protocol, capturing their dependence on the P2P connectivity control. We apply the model to analyze the optimal control of our active Bitcoin prototypes connected to the Mainnet to demonstrate the model’s usefulness. To facilitate and encourage further use of our model and the R&D in cryptocurrency networking in general, we discuss about the model applications and future directions. </strong> 
-									</p>
+										<strong><u>Proposed Solution</u>: Building on the Mainnet dataset [1], in [7], we model how peer connectivity directly impacts PoW rewards. Using empirical propagation delays, bandwidth usage, and mining performance derived from the dataset [1], we define a utility function U(x)=R(x)−C(x), where x is the number of peer connections, R(x) captures reward gains from faster block delivery, and C(x) captures networking and energy costs.
+
+The model shows that increasing connectivity improves rewards but exhibits diminishing returns, leading to a finite optimal number of connections for rational miners. Applying the model to the active Mainnet prototypes demonstrates that the optimal connectivity depends on mining capability (e.g., GPU vs. ASIC). This work connects real-world Mainnet measurements with incentive-driven networking control and provides a foundation for adaptive and ML-based connectivity optimization.
 									<embed type='image/png' id='PositiveReputationScore' class='rounded' src='img/Utility.png' width='100%' alt='Positive Reputation Score Varying the Weights'>
 									<div class='d-flex gap-2 mt-3'>
 										<a href='https://doi.org/10.1109/NOMS57970.2025.11073661' target='_blank'
 											rel='noopener noreferrer' class='btn btn-primary btn-small'>View
 											Publication</a>
 									</div>
-								</div>
-							</div>
+								</div>						</div>
 							<div class='mt-3'>
-								<p class='mb-0'><strong>Citation:</strong> Sang-Yoon Chang, <u>Nazmus Sakib</u>, Simeon Wuthier, and Keith Paarporn. "Analyzing and Modeling Connection Impact on Distributed Consensus in Cryptocurrency Blockchain." In NOMS  2025-2025 IEEE Network Operations and Management Symposium, pp. 1-5. IEEE, 2025.
+								<p class='mb-0'>[7] Sang-Yoon Chang, <u>Nazmus Sakib</u>, Simeon Wuthier, and Keith Paarporn. "Analyzing and Modeling Connection Impact on Distributed Consensus in Cryptocurrency Blockchain." In NOMS  2025-2025 IEEE Network Operations and Management Symposium, pp. 1-5. IEEE, 2025.
 							</div>
 						</div>
 					</div>
 
 					<div class='card mb-4 text-color rounded card-border'>
 						<div class='card-header bg-color-dim'>
-							<h5 class='card-title text-color m-0'>A Hybrid Personalized Scientific Paper Recommendation Approach Integrating Public Contextual Metadata</h5>
+							<h5 class='card-title text-color m-0'>Context-Aware Personalized Recommendation Framework </h5>
 						</div>
 						<div class='card-body rounded-bottom bg-card-color'>
 							<div class='row'>
 								<div class='col-lg-12 mb-3'>
 									<p class='card-text'>
-										<strong>Abstract: Rapid increase in scholarly publications on the web has posed a new challenge to the researchers in finding highly relevant and important research articles associated with a particular area of interest. Even a highly relevant paper is sometimes missed especially for novice researchers due to lack of knowledge and experience in finding and accessing the most suitable articles. Scholarly recommender system is a very appropriate tool for this purpose that can enable researchers to locate relevant publications easily and quickly. However, the main downside of the existing approaches is that their effectiveness is dependent on priori user pro les and thus, they cannot recommend papers to the new users. Furthermore, the system uses both public and non-public metadata and therefore, the system is unable to find similarities between papers efficiently due to copyright restrictions. Considering the above challenges, in this research work, a novel hybrid approach is proposed that separately combines a Content Based Filtering (CBF)recommender module and a Collaborative Filtering (CF) recommender module. Unlike previous CBF and CF approaches, public contextual metadata and paper-citation relationship information are effectively incorporated into these two approaches separately to enhance the recommendation accuracy. In order to verify the effectiveness of the proposed approach, publicly available datasets were employed. Experimental results demonstrate that the proposed approach outperforms the baseline approaches in terms of standard metrics (precision, recall, F1-measure, mean average precision, and mean reciprocal rank), indicating that the proposed approach is more efficient in recommending scholarly publications. </strong> 
+										<strong><u>Proposed Solution</u>: In [8] and [9], we developed a hybrid scholarly recommendation engine supported by an intelligent data pipeline to crawl, preprocess, and structure scholarly metadata, generating citation-matrix and citation-graph datasets from publicly available sources. We applied Information Retrieval, Recommender Systems, and Data Mining techniques to integrate metadata-driven feature engineering (title, keywords, abstract) with multi-level citation-context modeling (hidden relationship). By combining semantic similarity (TF–cosine) and citation-context similarity (Jaccard-based measures) within a unified fusion framework, the proposed approach mitigates cold-start and sparsity challenges without relying on priori user profiles. Experimental results demonstrate improved recommendation accuracy across standard IR metrics.
 									</p>
 									<embed type='image/png' id='PositiveReputationScore' class='rounded' src='img/Collaborative.png' width='100%' alt='Positive Reputation Score Varying the Weights'>
-									<div class='d-flex gap-2 mt-3'>
+										<div class='d-flex gap-2 mt-3'>
+										<a href='https://doi.org/10.1109/ACCESS.2020.2980589' target='_blank'
+											rel='noopener noreferrer' class='btn btn-primary btn-small'>View
+											Publication</a>
+										
 										<a href='https://doi.org/10.1109/ACCESS.2021.3086964' target='_blank'
 											rel='noopener noreferrer' class='btn btn-primary btn-small'>View
 											Publication</a>
@@ -360,7 +363,9 @@ Using datasets, we analyze application behavior, network performance, and PoW im
 								</div>
 							</div>
 							<div class='mt-3'>
-								<p class='mb-0'><strong>Citation:</strong> <u>Nazmus Sakib</u>, Rodina Binti Ahmad, Mominul Ahsan, Md Abdul Based, Khalid Haruna, Julfikar Haider, and Saravanakumar Gurusamy. "A hybrid personalized scientific paper recommendation  approach integrating public contextual metadata." IEEE Access 9 (2021): 83080-83091.
+								<p class='mb-0'>[8] <u>Nazmus Sakib</u>, Rodina Binti Ahmad, and Khalid Haruna. "A Collaborative Approach Toward Scientific Paper Recommendation Using Citation Context." IEEE Access (2020).
+							
+								<p class='mb-0'>[9] <u>Nazmus Sakib</u>, Rodina Binti Ahmad, Mominul Ahsan, Md Abdul Based, Khalid Haruna, Julfikar Haider, and Saravanakumar Gurusamy. "A hybrid personalized scientific paper recommendation  approach integrating public contextual metadata." IEEE Access (2021).
 							</div>
 						</div>
 					</div>
@@ -411,7 +416,7 @@ Using datasets, we analyze application behavior, network performance, and PoW im
 	<footer class='container-main footer text-color-dim bg-color-dim'>
 		<div class='row'>
 			<div class='col text-center'>
-				Copyright © 2025 Nazmus Sakib. All rights reserved..
+				Copyright © 2026 Nazmus Sakib. All rights reserved..
 			</div>
 		</div>
 	</footer>
